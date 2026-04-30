@@ -1,0 +1,12 @@
+
+public class reversenumber {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		//345
+		//543
+
+	}
+
+}
