@@ -1,0 +1,26 @@
+Note: Lambda expressions are just like functions and they accept parameters just like functions. 
+
+Common Built-in Functional Interfaces
+Comparable<T>: int compareTo(T o);
+Comparator<T>: int compare(T o1, T o2);
+These are commonly used in sorting and comparisons.
+
+Note: Other commonly used interface include Predicate<T>, it is used to test conditions, Function<T, R>, it represent a function that take the argument of type T and return a result of type R and Supplier<T>, it represent a function that supplies results.
+
+() -> {};
+() -> "geeksforgeeks";
+() -> { return "geeksforgeeks";};
+(Integer i) -> {return "geeksforgeeks" + i;}
+(String s) -> {return "geeksforgeeks";};
+
+
+
+4 and 5 are invalid lambdas, the rest are valid. Details:
+
+ This lambda has no parameters and returns void. It’s similar to a method with an empty body: public void run() { }.  
+ This lambda has no parameters and returns a String as an expression.
+This lambda has no parameters and returns a String (using an explicit return statement, within a block).
+return is a control-flow statement. To make this lambda valid, curly braces are required as follows: (Integer i) -> { return "geeksforgeeks" + i; }.
+“geeks for geeks” is an expression, not a statement. To make this lambda valid, you can remove the curly braces and semicolon as follows: (String s) -> "geeks for geeks". Or if you prefer, you can use an explicit return statement as follows: (String s) -> { return "geeks for geeks"; }. 
+
+
