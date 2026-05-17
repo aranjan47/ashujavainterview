@@ -1,0 +1,85 @@
+ArrayList vs LinkedList — when would you choose each?
+▼
+ArrayList: choose when you need random access, mostly read-heavy workloads, or cache-friendly sequential iteration. Better CPU cache performance due to contiguous memory.
+
+LinkedList: choose when you have frequent insertions/deletions at the head or middle, and you never need random access. Each node has 24-byte overhead (value + prev + next pointers) — memory-heavy.
+
+Gotcha for managers: In practice, ArrayList is almost always faster than LinkedList even for insertions because of CPU cache line efficiency. Benchmark before choosing LinkedList.
+
+Cache locality
+Memory overhead
+Access patterns
+Concurrency
+How would you make ArrayList thread-safe in production?
+▼
+Three options, with trade-offs:
+
+Collections.synchronizedList(list) — wraps every method in synchronized. Simple but coarse lock, poor throughput under contention.
+
+CopyOnWriteArrayList — creates a new array on every write. Ideal when reads vastly outnumber writes (e.g., listeners, observer lists). Very expensive writes.
+
+ReadWriteLock + ArrayList — custom wrapper with ReentrantReadWriteLock. Best for mixed read/write if you control the code.
+
+// CopyOnWriteArrayList — best for read-heavy
+List<String> safe = new CopyOnWriteArrayList<>();
+Thread safety
+CopyOnWrite
+ReentrantLock
+Design
+Design your own ArrayList from scratch (interview classic)
+▼
+Key pieces to discuss: backing Object array, size counter, grow strategy (1.5x), bounds checks, and iterator with modCount.
+
+class MyArrayList<T> {
+    private Object[] data = new Object[10];
+    private int size = 0;
+
+    public void add(T item) {
+        if (size == data.length) grow();
+        data[size++] = item;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T get(int i) {
+        if (i < 0 || i >= size) throw new IndexOutOfBoundsException();
+        return (T) data[i];
+    }
+
+    private void grow() {
+        int newCap = data.length + (data.length >> 1);
+        data = Arrays.copyOf(data, newCap);
+    }
+}
+Generics
+Unchecked cast
+Grow strategy
+Memory
+What happens to memory when you remove elements?
+▼
+ArrayList does NOT shrink automatically. After removing elements, the backing array retains its capacity. Removed slots are set to null (to allow GC of the object), but the array slots remain allocated. Call trimToSize() explicitly to reclaim space. This is a common memory leak pattern in long-lived lists.
+
+// After bulk removal, the array stays at old capacity
+list.removeIf(e -> e > 1000); // size drops, capacity unchanged
+list.trimToSize();             // now capacity == size
+Memory leak
+GC roots
+trimToSize
+API Design
+subList() — what's the trap?
+▼
+list.subList(from, to) returns a view, not a copy. Modifying the subList modifies the original, and modifying the original after taking a subList throws ConcurrentModificationException. To get a safe copy: new ArrayList<>(list.subList(1, 4)).
+
+List<Integer> sub = list.subList(1, 4); // view, not copy
+sub.clear();          // modifies original list!
+list.add(99);         // now sub.get(0) throws CME
+View vs copy
+CME pitfall
+
+How would you optimize ArrayList performance for 10M elements?
+▼
+Key manager-level talking points:
+1) Pre-size with new ArrayList<>(10_000_000) — eliminates 24 resize operations.
+2) Use primitive arrays or IntArrayList (Eclipse Collections, Trove) to avoid boxing overhead.
+3) Batch operations via addAll() instead of individual add() in loops.
+4) For parallel processing, split using subList() and process in ForkJoinPool.
+5) Consider off-heap (Chronicle Map) if GC pause is a concern.
