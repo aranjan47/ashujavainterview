@@ -1,13 +1,14 @@
 package JAVA11;
 
+import java.util.List;
 import java.util.stream.Stream;
 // var in Lambda Parameters
 
 public class varInLambda {
 	public static void main(String[] args) {
-        Stream.of("Java", "Python")
-              .map((var s) -> s.toUpperCase())
-              .forEach(System.out::println);
+        List<String> list = List.of("A", "B", "C");
+
+        list.forEach((var item) -> System.out.println(item));
     }
 
 }
