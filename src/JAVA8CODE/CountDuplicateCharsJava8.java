@@ -39,11 +39,13 @@ public class CountDuplicateCharsJava8 {
         }
         );
         result1.forEach((k, v) -> {
-                    if (v > 1) {
+                    if (v == 1) {
                         System.out.println(k +" : "+ v);
                         //break;
                     }
+
                 }
+
         );
         
 

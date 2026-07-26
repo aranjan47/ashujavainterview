@@ -1,0 +1,17 @@
+SELECT salary
+FROM (
+    SELECT salary,
+           DENSE_RANK() OVER (ORDER BY salary DESC) AS rnk
+    FROM Employee
+) t
+WHERE rnk = 3;
+
+
+SELECT salary
+FROM (
+    SELECT e.salary,
+           DENSE_RANK() OVER (ORDER BY e.salary DESC) AS rnk
+    FROM Employee e
+    JOIN Department d ON e.dept_id = d.dept_id
+) t
+WHERE rnk = N;
