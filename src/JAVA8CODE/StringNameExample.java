@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class myName {
+public class StringNameExample {
     public static void main(String[] args) {
         String name = "ASHUTOSH";
 //Remove Duplicate Characters
@@ -47,7 +47,7 @@ public class myName {
                 .mapToObj(c -> String.valueOf((char) c))
                 .collect(Collectors.joining());
 
-       // System.out.println(sorted);
+       System.out.println(sorted);
 /// 6. Find Duplicate Characters in a String
        // String name = "ASHUTOSH";
 
@@ -57,6 +57,6 @@ public class myName {
                 .filter(c -> !seen.add(c))
                 .collect(Collectors.toSet());
 
-        System.out.println(duplicates);
+        //System.out.println(duplicates);
     }
 }
