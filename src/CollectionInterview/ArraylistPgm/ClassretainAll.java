@@ -6,6 +6,8 @@ import java.util.*;
 class ClassretainAll {
     public static void main(String args[]) {
         ArrayList<String> list1 = new ArrayList<>();
+        String arr [] = {"ram", "shyam", "Ravi", "Vijay"};
+
         list1.add("Ravi");
         list1.add("Vijay");
 

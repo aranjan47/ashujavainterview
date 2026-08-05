@@ -38,7 +38,7 @@ public class CountDuplicateCharsJava8 {
             }
         }
         );
-        result1.forEach((k, v) -> {
+       /* result1.forEach((k, v) -> {
                     if (v == 1) {
                         System.out.println(k +" : "+ v);
                         //break;
@@ -46,20 +46,21 @@ public class CountDuplicateCharsJava8 {
 
                 }
 
-        );
+        );*/
         
 
         charValue.forEach((k, v) -> {
         	
             if (v > 1) {
-                //System.out.println(k + " : " + v);
+                System.out.println(k + " : " + v);
                 
-                //break; 
             }
-            
-        }
-        
+
+                }
+
+
         );
+
         
     }
 }
