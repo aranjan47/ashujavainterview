@@ -15,3 +15,11 @@ FROM (
     JOIN Department d ON e.dept_id = d.dept_id
 ) t
 WHERE rnk = N;
+
+SELECT *
+FROM (
+    SELECT *,
+           COUNT(*) OVER (PARTITION BY email, name) AS cnt
+    FROM your_table_name
+) t
+WHERE cnt > 1;
