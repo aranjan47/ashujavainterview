@@ -22,6 +22,8 @@ class Main {
         list.add(new Student(102, "Ravi", 21));
         list.add(new Student(103, "Hanumat", 25));
         list.add(new Student(104, "ashutosh", 27));
+        list.add(new Student(104, "ashutosh", 27));
+
 
         for (Student s : list) {
             System.out.println(s.rollno + " " + s.name + " " + s.age);

@@ -13,6 +13,7 @@ public class IteratorExample {
         Iterator<String> itr = list.iterator();
 
         while (itr.hasNext()) {
+            //list.add("ram"); java.util.ConcurrentModificationException
             System.out.println(itr.next());
         }
     }
