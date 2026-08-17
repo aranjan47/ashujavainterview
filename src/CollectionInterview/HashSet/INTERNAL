@@ -1,0 +1,23 @@
+                 add(obj)
+                    |
+                    v
+              calculate hash
+                    |
+                    v
+             find bucket
+                    |
+             +------+------+
+             |             |
+          empty          occupied
+             |             |
+           insert      compare hash
+                           |
+                     hash matches?
+                       /       \
+                     No        Yes
+                     |          |
+                   insert    equals()?
+                              /    \
+                            No      Yes
+                            |        |
+                         insert    duplicate
