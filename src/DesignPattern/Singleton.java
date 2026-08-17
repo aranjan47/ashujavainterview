@@ -1,6 +1,6 @@
 package DesignPattern;
 
-class Singleton {
+public class Singleton {
     private static volatile Singleton obj = null;
     private Singleton() {}
 
